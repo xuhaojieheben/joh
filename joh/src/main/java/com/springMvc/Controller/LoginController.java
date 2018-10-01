@@ -65,5 +65,7 @@ public class LoginController extends BaseController{
 	   //ModelAndView mv = new ModelAndView();
 	   //mv.addObject("msg","hello myfirst mvc");
 	   //mv.setViewName("login");return "/common/html/index";
+	   
+	   
 	}
 }
