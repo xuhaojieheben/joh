@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.batis.idao.ISysUserMapper" >
+	<resultMap id="sysUserMap" type="com.data.sysmodel.Sys_User" >
+       <id column="Id" property="Id" />
+       <result column="Account" property="Account" />
+       <result column="RealName" property="RealName" />
+       <result column="CreateDate" property="CreateDate"  />
+    </resultMap>
+	<insert id="Add" useGeneratedKeys="true" keyProperty="Id" parameterType="com.data.sysmodel.Sys_User">
+  		insert into Sys_User(Account, Password,RealName,CreateDate,IsDel) values(#{Account}, #{Password},#{RealName},#{CreateDate},#{IsDel})
+	</insert>
+	<update id="Modify" parameterType="com.data.sysmodel.Sys_User">
+        UPDATE Sys_User 
+        <set>
+            <if test="Account != null">Account=#{Account},</if>
+            <if test="RealName != null">RealName=#{RealName}</if>
+        </set>
+        WHERE Id = #{Id};
+    </update>
+    
+    <delete id="Delete" parameterType="com.data.sysmodel.Sys_User">  
+        DELETE FROM Sys_User WHERE Id = #{Id}  
+	</delete>
+	
+	<select id="ValidateUser" parameterType="Map" resultType="com.data.sysmodel.Sys_User">
+        select * from Sys_User where Account=#{Account} and Password=#{Password} and IsDel = 0
+    </select>
+    
+    <select id="QuerySysUserByPage" parameterType="Map" resultMap="sysUserMap">
+        select * from Sys_User
+    </select>
+</mapper>
